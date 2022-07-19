@@ -1,48 +1,13 @@
-# Slime World Manager [![Build Status](https://travis-ci.com/Grinderwolf/Slime-World-Manager.svg?branch=master)](https://travis-ci.com/Grinderwolf/Slime-World-Manager)
-
-[<img src="https://discordapp.com/assets/e4923594e694a21542a489471ecffa50.svg" alt="" height="55" />](https://discord.gg/P9Pd58d)
+# Slime World Manager 
 
 Slime World Manager is a Minecraft plugin that implements the Slime Region Format, developed by the Hypixel Dev Team.
 Its goal is to provide server administrators with an easy-to-use tool to load worlds faster and save space.
 
+This fork allows us to manage dependencies using Kotlin DSL and nexus repository.
+
 #### Releases
 
-SWM releases can be found [here](https://www.spigotmc.org/resources/slimeworldmanager.69974/history).
-
-## Using SWM in your plugin
-
-#### Maven
-
-```
-<repositories>
-  <repository>
-    <id>glaremasters</id>
-    <url>https://repo.glaremasters.me/repository/concuncan/</url>
-  </repository>
-</repositories>
-```
-
-```
-<dependencies>
-  <dependency>
-    <groupId>com.grinderwolf</groupId>
-    <artifactId>slimeworldmanager-api</artifactId>
-    <version>INSERT LATEST VERSION HERE</version>
-  </dependency>
-</dependencies>
-```
-
-#### Gradle
-
-```
-repositories {
-    maven { url "https://repo.glaremasters.me/repository/concuncan/" }
-}
-
-dependencies {
-    compileOnly group: "com.grinderwolf", name: "slimeworldmanager-api", version: "INSERT LATEST VERSION HERE";
-}
-```
+SWM **official releases** can be found [here](https://www.spigotmc.org/resources/slimeworldmanager.69974/history).
 
 #### Javadocs
 
@@ -76,6 +41,7 @@ Thanks to:
 * [Glare](https://glaremasters.me) for providing me with a Maven repository.
 * [Minikloon](https://twitter.com/Minikloon) and all the [Hypixel](https://twitter.com/HypixelNetwork) team for
   developing the SRF.
+* [Pedro Aguiar](https://github.com/pedroagrs) for support in Kotlin DSL and fork maintenance.
 
 ## YourKit
 
