@@ -269,6 +269,11 @@ public class SWMImporter {
 
                         CompoundTag levelCompound = (CompoundTag) globalMap.get("Level");
 
+                        headerStream.close();
+                        chunkStream.close();
+                        decompressorStream.close();
+                        nbtStream.close();
+
                         return readChunk(levelCompound, worldVersion);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
