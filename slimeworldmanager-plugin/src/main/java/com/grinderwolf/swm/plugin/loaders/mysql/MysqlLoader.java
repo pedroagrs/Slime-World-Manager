@@ -18,6 +18,7 @@ import com.grinderwolf.swm.plugin.loaders.UpdatableLoader;
 import com.grinderwolf.swm.plugin.log.Logging;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.mariadb.jdbc.MariaDbDataSource;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -41,6 +42,8 @@ public class MysqlLoader extends UpdatableLoader {
             new ThreadFactoryBuilder()
                     .setNameFormat("SWM MySQL Lock Pool Thread #%1$d")
                     .build());
+
+    private static boolean DRIVER_LOADED = false;
 
     private static final int CURRENT_DB_VERSION = 1;
 
@@ -71,15 +74,19 @@ public class MysqlLoader extends UpdatableLoader {
     private final HikariDataSource source;
 
     public MysqlLoader(DatasourcesConfig.MysqlConfig config) throws SQLException {
-        HikariConfig hikariConfig = new HikariConfig();
-
-        hikariConfig.setJdbcUrl("jdbc:mysql://"
+        String url = "jdbc:mariadb://"
                 + config.getHost()
                 + ":"
                 + config.getPort()
                 + "/"
                 + config.getDatabase()
-                + "?autoReconnect=true&allowMultiQueries=true");
+                + "?autoReconnect=true&allowMultiQueries=true";
+
+        if (!DRIVER_LOADED) initDriver(url, config.getUsername(), config.getPassword());
+
+        HikariConfig hikariConfig = new HikariConfig();
+
+        hikariConfig.setJdbcUrl(url);
         hikariConfig.setUsername(config.getUsername());
         hikariConfig.setPassword(config.getPassword());
 
@@ -309,6 +316,19 @@ public class MysqlLoader extends UpdatableLoader {
             }
         } catch (SQLException ex) {
             throw new IOException(ex);
+        }
+    }
+
+    private void initDriver(String url, String user, String password) {
+        if (DRIVER_LOADED) return;
+
+        try {
+            final MariaDbDataSource mariaDbDataSource = new MariaDbDataSource(url);
+            mariaDbDataSource.getConnection(user, password).close();
+
+            DRIVER_LOADED = true;
+        } catch (SQLException exception) {
+            exception.fillInStackTrace();
         }
     }
 }

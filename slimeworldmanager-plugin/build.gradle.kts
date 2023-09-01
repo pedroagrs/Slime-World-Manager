@@ -16,6 +16,8 @@ dependencies {
     implementation(project(":slimeworldmanager-nms-common"))
     implementation(project(":slimeworldmanager-nms-v1_8_R3"))
     implementation("com.github.luben:zstd-jni:1.5.2-1")
+
+    implementation("org.mariadb.jdbc:mariadb-java-client:3.0.5")
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("org.mongodb:mongo-java-driver:3.12.11")
     implementation("org.spongepowered:configurate-yaml:3.7-SNAPSHOT")
